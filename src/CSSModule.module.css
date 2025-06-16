@@ -1,0 +1,15 @@
+.wrapper {
+	background: #577f2c93;
+	padding: 12px;
+	color: #fff;
+	font-size: 14px;
+
+	&.border {
+		border: 1px solid #f10000;
+	}
+}
+
+:global .text {
+	font-weight: 500;
+	color: #954adc8b;
+}
