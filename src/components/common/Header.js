@@ -47,7 +47,7 @@ export default function Header({ user, onLogOut }) {
           <div className="right">
             {user ? (
               <>
-                <UserInfo>{user.username}</UserInfo>
+                <UserInfo>{user}</UserInfo>
                 <Button className="small" colorCyan="true" onClick={onLogOut}>
                   LOG OUT
                 </Button>

@@ -18,25 +18,19 @@ const buildLink = ({ username, tag, page }) => {
   return username ? `/@${username}?${query}` : `?${query}`;
 };
 
-export default function Pagination({ page, lastPage, username, tag }) {
+export default function Pagination({ page, lastPage, username }) {
   return (
     <PaginationBlock>
       <Button
         disabled={page === 1}
-        to={
-          page === 1 ? undefined : buildLink({ username, tag, page: page - 1 })
-        }
+        to={page === 1 ? undefined : buildLink({ page: page - 1 })}
       >
         이전
       </Button>
       <PageNumber>{page}</PageNumber>
       <Button
         disabled={page === lastPage}
-        to={
-          page === lastPage
-            ? undefined
-            : buildLink({ username, tag, page: page + 1 })
-        }
+        to={page === lastPage ? undefined : buildLink({ page: page + 1 })}
       >
         다음
       </Button>

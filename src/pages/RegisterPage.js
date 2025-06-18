@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import AuthTemplate from '../components/auth/AuthTemplate';
-import RegisterForm from '../containers/auth/RegisterForm';
+// import RegisterForm from '../containers/auth/RegisterForm';
+import AuthForm from '../components/auth/AuthForm';
 
 export default function RegisterPage() {
   return (
@@ -8,7 +9,7 @@ export default function RegisterPage() {
       <Helmet>
         <title>REGISTER</title>
       </Helmet>
-      <RegisterForm />
+      <AuthForm type="register" />
     </AuthTemplate>
   );
 }

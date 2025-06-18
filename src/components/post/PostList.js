@@ -35,27 +35,24 @@ const PostItemBlock = styled.div`
 `;
 
 export function PostItem({ post }) {
-  const { publishedDate, user, _id, title, tags, body } = post;
+  const { publishedDate, _id, username, title, tags, body } = post;
   return (
     <PostItemBlock>
       <h2>
-        <Link to={`/@${user.username}/${_id}`}>{title}</Link>
+        <Link to={`/${_id}`}>{title}</Link>
       </h2>
       <SubInfo
-        username={user.username}
+        username={username}
         publishedDate={publishedDate}
         hasMargin="true"
       />
       <Tags tags={tags} />
-      <p>{body}</p>
+      <p dangerouslySetInnerHTML={{ __html: body }} />
     </PostItemBlock>
   );
 }
 
 export default function PostList({ posts, error, loading, showWriteBtn }) {
-  if (error) {
-    return <PostListBlock>오류가 발생하였습니다.</PostListBlock>;
-  }
   return (
     <PostListBlock>
       <WritePostButtonWrapper>
@@ -68,6 +65,7 @@ export default function PostList({ posts, error, loading, showWriteBtn }) {
           ))}
         </div>
       )}
+      {error && <p>포스트가 없습니다.</p>}
     </PostListBlock>
   );
 }

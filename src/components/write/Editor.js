@@ -31,7 +31,7 @@ const QuillWrapper = styled.div`
   }
 `;
 
-export default function Editor({ title, body, onChangeField, originalPost }) {
+export default function Editor({ title, body, onChangeField }) {
   const quillEl = useRef(null);
   const quillInstance = useRef(null);
 
@@ -63,8 +63,7 @@ export default function Editor({ title, body, onChangeField, originalPost }) {
       });
     }
     onChangeField({ key: 'title', val: title });
-    onChangeField({ key: 'originalPost', val: originalPost });
-  }, [onChangeField, title, originalPost]);
+  }, [onChangeField, title]);
 
   const mounted = useRef(false);
   useEffect(() => {

@@ -11,10 +11,6 @@ export default function EditorContainer() {
     return state.write.body;
   });
 
-  const originalPost = useSelector(({ write }) => {
-    return write.originalPost;
-  });
-
   const dispatch = useDispatch();
   const onChangeField = useCallback(
     (payload) => {
@@ -31,12 +27,7 @@ export default function EditorContainer() {
 
   return (
     <>
-      <Editor
-        onChangeField={onChangeField}
-        title={title}
-        body={body}
-        originalPost={originalPost}
-      />
+      <Editor onChangeField={onChangeField} title={title} body={body} />
     </>
   );
 }

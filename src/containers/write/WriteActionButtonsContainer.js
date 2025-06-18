@@ -1,60 +1,72 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { updatePost, writePost } from '../../modules/write';
 import WriteActionButtons from '../../components/write/WriteActionButtons';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { formatDate } from '../../lib/format.js';
+import { changeField } from '../../modules/write';
+import AskModal from '../../components/common/AskModal.js';
 
 export default function WriteActionButtonsContainer() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
 
-  const title = useSelector(({ write }) => {
-    return write.title;
-  });
-  const body = useSelector(({ write }) => {
-    return write.body;
-  });
-  const tags = useSelector(({ write }) => {
-    return write.tags;
-  });
-  const post = useSelector(({ write }) => {
-    return write.post;
-  });
-  const postError = useSelector(({ write }) => {
-    return write.postError;
+  const write = useSelector(({ write }) => {
+    return write;
   });
 
-  const originalPost = useSelector(({ write }) => {
-    return write.originalPost;
-  });
-
+  const localStorageData = JSON.parse(localStorage.getItem('PostList'));
+  const [posts, setPosts] = useState(
+    localStorageData === null ? [] : localStorageData,
+  );
   const onPublish = () => {
-    if (originalPost) {
-      dispatch(updatePost({ title, body, tags, id: originalPost }));
+    if (write.title === '') {
+      setModal(true);
       return;
+    } else {
+      setModal(false);
     }
-    dispatch(writePost({ title, body, tags }));
+    setPosts([...posts, write]);
+    navigate(`/${write._id}`);
   };
 
-  const onCancel = () => {
+  const onCancel = useCallback(() => {
     navigate(-1);
-  };
+  }, [navigate]);
 
   useEffect(() => {
-    if (post) {
-      const { _id, user } = post;
-      navigate(`/@${user.username}/${_id}`);
-    }
-    if (postError) {
-      console.log(postError);
-    }
-  }, [navigate, post, postError]);
+    dispatch(
+      changeField({
+        key: 'username',
+        val: JSON.parse(localStorage.getItem('User')),
+      }),
+    );
+    dispatch(
+      changeField({
+        key: '_id',
+        val: uuidv4(),
+      }),
+    );
+    dispatch(
+      changeField({
+        key: 'publishedDate',
+        val: formatDate(new Date()),
+      }),
+    );
+    localStorage.setItem('PostList', JSON.stringify(posts));
+  }, [posts, dispatch]);
 
   return (
-    <WriteActionButtons
-      onPublish={onPublish}
-      onCancel={onCancel}
-      isEdit={!!originalPost}
-    />
+    <div>
+      <WriteActionButtons onPublish={onPublish} onCancel={onCancel} />
+      <AskModal
+        visble={modal}
+        description="제목을 입력해주세요"
+        confirmTxt="확인"
+        onCancel={() => setModal(false)}
+        onConfirm={() => setModal(false)}
+      />
+    </div>
   );
 }

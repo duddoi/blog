@@ -51,7 +51,7 @@ export default function PostViewer({
     return null;
   }
 
-  const { title, body, user, publishedDate, tags } = post;
+  const { title, body, username, publishedDate, tags } = post;
 
   return (
     <>
@@ -65,7 +65,7 @@ export default function PostViewer({
         <PostHead>
           <h1>{title}</h1>
           <SubInfo
-            username={user.username}
+            username={username}
             publishedDate={publishedDate}
             hasMargin="true"
           />
