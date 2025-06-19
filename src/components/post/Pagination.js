@@ -13,12 +13,12 @@ const PaginationBlock = styled.div`
 
 const PageNumber = styled.div``;
 
-const buildLink = ({ username, tag, page }) => {
-  const query = qs.stringify({ tag, page });
-  return username ? `/@${username}?${query}` : `?${query}`;
+const buildLink = ({ page }) => {
+  const query = qs.stringify({ page });
+  return `?${query}`;
 };
 
-export default function Pagination({ page, lastPage, username }) {
+export default function Pagination({ page, lastPage }) {
   return (
     <PaginationBlock>
       <Button
@@ -27,7 +27,9 @@ export default function Pagination({ page, lastPage, username }) {
       >
         이전
       </Button>
-      <PageNumber>{page}</PageNumber>
+      <PageNumber>
+        {page}/{lastPage}
+      </PageNumber>
       <Button
         disabled={page === lastPage}
         to={page === lastPage ? undefined : buildLink({ page: page + 1 })}
