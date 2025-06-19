@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 
 const TagsBlock = styled.div`
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 12px;
   .tag {
     display: inline-block;
-    color: ${palette.cyan[7]};
+    color: ${palette.indigo[7]};
     text-decoration: none;
     margin-right: 12px;
     &:hover {
-      color: ${palette.cyan[6]};
+      color: ${palette.indigo[6]};
     }
   }
 `;

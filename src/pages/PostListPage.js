@@ -24,12 +24,8 @@ export default function PostListPage({ login, onLogOut }) {
       <Helmet>
         <title>HOME</title>
       </Helmet>
-      <Header user={login} onLogOut={onLogOut} />
-      <PostList
-        posts={chunk(posts, 5)[page - 1]}
-        showWriteBtn={login !== ''}
-        error={posts.length === 0}
-      />
+      <Header />
+      <PostList posts={chunk(posts, 5)[page - 1]} error={posts.length === 0} />
       {posts.length > 0 && (
         <Pagination
           page={page}

@@ -1,9 +1,0 @@
-@import "./utils.scss";
-
-.SassComponent {
-	display: flex;
-	background: $oc-gray-9;
-	@include media("<800px") {
-		background: $oc-gray-3;
-	}
-}

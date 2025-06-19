@@ -12,7 +12,7 @@ const AuthFormBlock = styled.div`
   h3 {
     font-size: 20px;
     text-align: center;
-    color: ${palette.cyan[5]};
+    color: ${palette.indigo[5]};
   }
 `;
 
@@ -20,16 +20,22 @@ const StyledInput = styled.input`
   outline: none;
   width: 100%;
   font-size: 16px;
-  line-height: 32px;
-  border: 0;
-  border-bottom: 1px solid ${palette.gray[5]};
-  padding: 2px;
+  line-height: 36px;
+  color: ${palette.indigo[8]};
+  background-color: ${palette.indigo[0]};
+  border: 1px solid ${palette.indigo[0]};
+  border-radius: 4px;
+  padding: 2px 12px;
   &:focus {
-    border-bottom-color: ${palette.cyan[8]};
+    border: 1px solid ${palette.indigo[3]};
   }
   & + & {
-    margin-top: 6px;
+    margin-top: 12px;
   }
+  &::placeholder {
+    font-size: 14px;
+  }
+  transition: 0.2s;
 `;
 
 const LoginButton = styled(Button)`
@@ -59,8 +65,8 @@ const Msg = styled.div`
 `;
 
 const textMap = {
-  login: 'LOG IN',
-  register: 'REGISTER',
+  login: '로그인',
+  register: '회원가입',
 };
 const secretKey = process.env.REACT_APP_SECRET_KEY;
 const encrypted = (pw, token) => {
@@ -167,7 +173,7 @@ export default function AuthForm({ type }) {
       <h3>{text}</h3>
       <form onSubmit={onSubmit}>
         <StyledInput
-          placeholder="input your id"
+          placeholder="이름을 입력해 주세요."
           autoComplete="username"
           name="username"
           onChange={(e) => {
@@ -176,7 +182,7 @@ export default function AuthForm({ type }) {
           value={username}
         />
         <StyledInput
-          placeholder="input your password"
+          placeholder="비밀번호를 입력해 주세요."
           autoComplete="new-password"
           name="password"
           type="password"
@@ -187,7 +193,7 @@ export default function AuthForm({ type }) {
         />
         {type === 'register' && (
           <StyledInput
-            placeholder="check your password"
+            placeholder="비밀번호를 확인해 주세요."
             autoComplete="new-password"
             name="passwordConfirm"
             type="password"
@@ -206,9 +212,9 @@ export default function AuthForm({ type }) {
       </form>
       <Footer>
         {type === 'register' ? (
-          <Link to="/login">LOG IN</Link>
+          <Link to="/login">로그인&gt;&gt;</Link>
         ) : (
-          <Link to="/register">REGISTER</Link>
+          <Link to="/register">회원가입&gt;&gt;</Link>
         )}
       </Footer>
     </AuthFormBlock>

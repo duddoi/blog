@@ -6,7 +6,7 @@ import Quill from 'quill';
 import 'quill/dist/quill.bubble.css';
 
 const EditorBlock = styled(Responsive)`
-  padding: 50px 0 0;
+  padding: 10px 0 0;
 `;
 
 const TitleInput = styled.input`
@@ -23,7 +23,7 @@ const QuillWrapper = styled.div`
   .ql-editor {
     padding: 0;
     min-height: 320px;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
   }
   .ql-editor.ql-blank::before {

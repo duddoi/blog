@@ -1,18 +1,12 @@
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import palette from '../../lib/styles/palette';
-import Button from '../common/Button';
 import SubInfo from '../common/SubInfo';
 import Tags from '../common/Tags';
 import { Link } from 'react-router-dom';
 
 const PostListBlock = styled(Responsive)`
   margin-top: 32px;
-`;
-const WritePostButtonWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 32px;
 `;
 
 const PostItemBlock = styled.div`
@@ -55,9 +49,6 @@ export function PostItem({ post }) {
 export default function PostList({ posts, error, loading, showWriteBtn }) {
   return (
     <PostListBlock>
-      <WritePostButtonWrapper>
-        {showWriteBtn && <Button to="/write">글 작성하기</Button>}
-      </WritePostButtonWrapper>
       {!loading && posts && (
         <div>
           {posts.map((post) => (

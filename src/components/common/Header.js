@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Responsive from './Responsive';
 import Button from './Button';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const HeaderBlock = styled.div`
   position: fixed;
@@ -16,7 +17,7 @@ const Wrapper = styled(Responsive)`
   align-items: center;
   justify-content: space-between;
   .logo {
-    font-size: 12px;
+    font-size: 18px;
     font-weight: 800;
     letter-spacing: 2px;
   }
@@ -35,32 +36,47 @@ const UserInfo = styled.div`
   margin-right: 12px;
   font-size: 12px;
 `;
+const WritePostButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 32px;
+  padding: 24px 24px 0 0;
+`;
 
-export default function Header({ user, onLogOut }) {
+export default function Header({ noWriteBtn }) {
+  const localStorageData = JSON.parse(localStorage.getItem('User'));
+  const [login, setLogin] = useState(localStorageData);
+  const onLogOut = () => {
+    setLogin('');
+    localStorage.setItem('User', JSON.stringify(''));
+  };
   return (
     <>
       <HeaderBlock>
         <Wrapper>
           <Link to="/" className="logo">
-            REACTTTTTTT
+            REACT-BLOG
           </Link>
           <div className="right">
-            {user ? (
+            {login ? (
               <>
-                <UserInfo>{user}</UserInfo>
+                <UserInfo>{login}</UserInfo>
                 <Button className="small" colorCyan="true" onClick={onLogOut}>
-                  LOG OUT
+                  로그아웃
                 </Button>
               </>
             ) : (
               <Button colorCyan="true" to="/login">
-                LOG IN
+                로그인
               </Button>
             )}
           </div>
         </Wrapper>
       </HeaderBlock>
       <Spacer />
+      <WritePostButtonWrapper>
+        {login && !noWriteBtn && <Button to="/write">글 작성하기</Button>}
+      </WritePostButtonWrapper>
     </>
   );
 }

@@ -7,7 +7,7 @@ import Button from '../common/Button';
 import { Helmet } from 'react-helmet-async';
 
 const PostViewerBlock = styled(Responsive)`
-  margin-top: 40px;
+  margin-top: 0;
 `;
 const WritePostButtonWrapper = styled.div`
   display: flex;

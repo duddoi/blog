@@ -29,7 +29,7 @@ const WhiteBox = styled.div`
   }
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
   padding: 20px;
-  max-width: 360px;
+  max-width: 320px;
   width: calc(100% - 40px);
   background: #fff;
   border-radius: 10px;
@@ -40,7 +40,7 @@ export default function AuthTemplate({ children }) {
     <AuthTemplateBlock>
       <WhiteBox>
         <div className="logo-area">
-          <Link to="/">MY REACT</Link>
+          <Link to="/">REACT-BLOG</Link>
         </div>
         {children}
       </WhiteBox>

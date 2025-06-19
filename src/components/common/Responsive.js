@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 const ResponsiveBlock = styled.div`
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
   width: 1024px;
   margin: 0 auto;
 

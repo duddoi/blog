@@ -9,7 +9,7 @@ export default function PostPage({ login, onLogOut }) {
   const post = localStorageData.find((dt) => postId === dt._id);
   return (
     <>
-      <Header user={login} onLogOut={onLogOut} />
+      <Header />
       <PostViewer post={post} />
     </>
   );
