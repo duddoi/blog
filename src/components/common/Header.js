@@ -36,7 +36,7 @@ const UserInfo = styled.div`
   margin-right: 12px;
   font-size: 12px;
 `;
-const WritePostButtonWrapper = styled.div`
+const WritePostButtonWrapper = styled(Responsive)`
   display: flex;
   justify-content: flex-end;
   margin-bottom: 32px;
