@@ -37,10 +37,10 @@ const buttonStyle = css`
   ${(props) =>
     props.$cyan &&
     css`
-      background: ${palette.indigo[5]};
+      background: ${palette.teal[5]};
       transition: background 500ms;
       &:hover {
-        background: ${palette.indigo[7]};
+        background: ${palette.teal[7]};
       }
     `}
   ${(props) =>

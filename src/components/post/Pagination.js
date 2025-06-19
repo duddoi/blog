@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import qs from 'qs';
 import Button from '../common/Button';
+import palette from '../../lib/styles/palette';
 
 const PaginationBlock = styled.div`
   width: 160px;
@@ -9,6 +10,13 @@ const PaginationBlock = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-bottom: 32px;
+  .now-page {
+    color: ${palette.teal[9]};
+    font-weight: bold;
+  }
+  .total-page {
+    color: ${palette.gray[6]};
+  }
 `;
 
 const PageNumber = styled.div``;
@@ -28,7 +36,8 @@ export default function Pagination({ page, lastPage }) {
         이전
       </Button>
       <PageNumber>
-        {page}/{lastPage}
+        <span className="now-page">{page}</span>
+        <span className="total-page"> / {lastPage}</span>
       </PageNumber>
       <Button
         disabled={page === lastPage}

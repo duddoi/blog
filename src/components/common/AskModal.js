@@ -58,7 +58,7 @@ export default function AskModal({
     <FullScreen>
       <AskModalBlock className={type === 'confirm' ? 'confirm' : ''}>
         {type !== 'confirm' && <h2>{title}</h2>}
-        <p>{description}</p>
+        <p dangerouslySetInnerHTML={{ __html: description }} />
         <div className="buttons">
           <Button onClick={onCancel}>{cancelTxt}</Button>
           <Button

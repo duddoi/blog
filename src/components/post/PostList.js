@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom';
 
 const PostListBlock = styled(Responsive)`
   margin-top: 32px;
+  p {
+    text-align: center;
+    color: ${palette.gray[6]};
+  }
 `;
 
 const PostItemBlock = styled.div`
@@ -56,7 +60,11 @@ export default function PostList({ posts, error, loading, showWriteBtn }) {
           ))}
         </div>
       )}
-      {error && <p>포스트가 없습니다.</p>}
+      {error && (
+        <p>
+          포스트가 없습니다. <br /> 로그인 후 포스트 등록이 가능합니다.
+        </p>
+      )}
     </PostListBlock>
   );
 }

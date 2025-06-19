@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import CryptoJS from 'crypto-js';
 import { v4 as uuidv4 } from 'uuid';
+import AskModal from '../common/AskModal';
 
 // 회원가입/로그인 폼
 
@@ -12,7 +13,7 @@ const AuthFormBlock = styled.div`
   h3 {
     font-size: 20px;
     text-align: center;
-    color: ${palette.indigo[5]};
+    color: ${palette.teal[5]};
   }
 `;
 
@@ -21,13 +22,13 @@ const StyledInput = styled.input`
   width: 100%;
   font-size: 16px;
   line-height: 36px;
-  color: ${palette.indigo[8]};
-  background-color: ${palette.indigo[0]};
-  border: 1px solid ${palette.indigo[0]};
+  color: ${palette.teal[8]};
+  background-color: ${palette.teal[0]};
+  border: 1px solid ${palette.teal[0]};
   border-radius: 4px;
   padding: 2px 12px;
   &:focus {
-    border: 1px solid ${palette.indigo[3]};
+    border: 1px solid ${palette.teal[3]};
   }
   & + & {
     margin-top: 12px;
@@ -53,14 +54,14 @@ const Footer = styled.div`
 `;
 
 const Msg = styled.div`
-  color: #0007d9;
+  color: ${palette.teal[9]};
   text-align: center;
   font-size: 12px;
-  margin-top: 6px;
+  margin-top: 12px;
   ${(props) =>
     props.$error &&
     css`
-      color: red;
+      color: ${palette.red[9]};
     `}
 `;
 
@@ -93,81 +94,84 @@ export default function AuthForm({ type }) {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [message, setMessage] = useState({ type: '', text: '' });
+  const [modal, setModal] = useState(false);
 
   const navigate = useNavigate();
 
-  const onSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      if (type === 'register') {
-        const exist = users.find((user) => user.username === username);
-        if (exist) {
-          setMessage({
-            type: 'error',
-            text: '이미 존재하는 이름입니다. 다시 입력해 주세용.',
-          });
-          return;
-        }
-        if (password !== passwordConfirm) {
-          setMessage({
-            type: 'error',
-            text: '비밀번호가 일치하지 않습니다.',
-          });
-          return;
-        }
-        if (password === '' || username === '' || passwordConfirm === '') {
-          setMessage({
-            type: 'error',
-            text: '빈 칸을 입력해 주세요.',
-          });
-          return;
-        }
-        setUsers([
-          ...users,
-          {
-            username: username,
-            password: encrypted(password, secretKey),
-            id: uuidv4(),
-          },
-        ]);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (type === 'register') {
+      const exist = users.find((user) => user.username === username);
+      if (exist) {
+        setMessage({
+          type: 'error',
+          text: '이미 존재하는 이름입니다. 다시 입력해 주세용.',
+        });
+        return;
+      }
+      if (password !== passwordConfirm) {
+        setMessage({
+          type: 'error',
+          text: '비밀번호가 일치하지 않습니다.',
+        });
+        return;
+      }
+      if (password === '' || username === '' || passwordConfirm === '') {
+        setMessage({
+          type: 'error',
+          text: '빈 칸을 입력해 주세요.',
+        });
+        return;
+      }
+      setUsers([
+        ...users,
+        {
+          username: username,
+          password: encrypted(password, secretKey),
+          id: uuidv4(),
+        },
+      ]);
 
-        setMessage({ type: 'success', text: '회원가입 성공!!' });
-        setUsername('');
-        setPassword('');
-        setPasswordConfirm('');
-      } else if (type === 'login') {
-        if (password === '' || username === '') {
-          setMessage({
-            type: 'error',
-            text: '빈 칸을 입력해 주세요.',
-          });
-          return;
-        }
-        const exist = users.find((user) => user.username === username);
-        if (exist && password) {
-          if (password === decrypted(exist.password, secretKey)) {
-            localStorage.setItem('User', JSON.stringify(username));
-            navigate('/');
-          } else {
-            setMessage({
-              type: 'error',
-              text: '비밀번호가 틀렸습니다.',
-            });
-          }
+      setMessage({ type: 'success', text: '회원가입 성공!!' });
+      setModal(true);
+      setUsername('');
+      setPassword('');
+      setPasswordConfirm('');
+    } else if (type === 'login') {
+      if (password === '' || username === '') {
+        setMessage({
+          type: 'error',
+          text: '빈 칸을 입력해 주세요.',
+        });
+        return;
+      }
+      const exist = users.find((user) => user.username === username);
+      if (exist && password) {
+        if (password === decrypted(exist.password, secretKey)) {
+          localStorage.setItem('User', JSON.stringify(username));
+          navigate('/');
         } else {
           setMessage({
             type: 'error',
-            text: '존재하지 않는 사용자입니다.',
+            text: '비밀번호가 틀렸습니다.',
           });
-          return;
         }
+      } else {
+        setMessage({
+          type: 'error',
+          text: '존재하지 않는 사용자입니다.',
+        });
+        return;
       }
-    },
-    [users, username, password, type, passwordConfirm, navigate],
-  );
+    }
+  };
   useEffect(() => {
     localStorage.setItem('UserList', JSON.stringify(users));
-  });
+    return () => {
+      console.log('clear!!!');
+      localStorage.setItem('UserList', JSON.stringify([]));
+    };
+  }, [users]);
   return (
     <AuthFormBlock>
       <h3>{text}</h3>
@@ -193,7 +197,7 @@ export default function AuthForm({ type }) {
         />
         {type === 'register' && (
           <StyledInput
-            placeholder="비밀번호를 확인해 주세요."
+            placeholder="비밀번호를 다시 한번 입력해 주세요."
             autoComplete="new-password"
             name="passwordConfirm"
             type="password"
@@ -217,6 +221,14 @@ export default function AuthForm({ type }) {
           <Link to="/register">회원가입&gt;&gt;</Link>
         )}
       </Footer>
+      <AskModal
+        visble={modal}
+        description="회원가입이 완료되었습니다.<br> 로그인하시겠습니까?"
+        confirmTxt="로그인"
+        onCancel={() => setModal(false)}
+        onConfirm={() => navigate('/login')}
+        type="confirm"
+      />
     </AuthFormBlock>
   );
 }

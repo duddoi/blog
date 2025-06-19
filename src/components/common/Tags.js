@@ -7,11 +7,11 @@ const TagsBlock = styled.div`
   font-size: 12px;
   .tag {
     display: inline-block;
-    color: ${palette.indigo[7]};
+    color: ${palette.teal[7]};
     text-decoration: none;
     margin-right: 12px;
     &:hover {
-      color: ${palette.indigo[6]};
+      color: ${palette.teal[6]};
     }
   }
 `;
