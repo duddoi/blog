@@ -62,10 +62,11 @@ export default function WriteActionButtonsContainer() {
       <WriteActionButtons onPublish={onPublish} onCancel={onCancel} />
       <AskModal
         visble={modal}
-        description="제목을 입력해주세요"
+        description="제목을 입력해주세요!"
         confirmTxt="확인"
         onCancel={() => setModal(false)}
         onConfirm={() => setModal(false)}
+        type="confirm"
       />
     </div>
   );

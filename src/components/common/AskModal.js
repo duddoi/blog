@@ -15,11 +15,11 @@ const FullScreen = styled.div`
 `;
 
 const AskModalBlock = styled.div`
-  width: 320px;
+  width: 280px;
   background-color: #fff;
   padding: 20px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
-  border-radius: 4px;
+  border-radius: 8px;
   &.confirm {
     width: 240px;
   }
@@ -29,13 +29,16 @@ const AskModalBlock = styled.div`
   }
   p {
     padding-bottom: 32px;
+    font-size: 14px;
+    text-align: center;
   }
   .buttons {
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     gap: 12px;
     button {
-      min-width: 56px;
+      width: 50%;
     }
   }
 `;
@@ -57,13 +60,10 @@ export default function AskModal({
         {type !== 'confirm' && <h2>{title}</h2>}
         <p>{description}</p>
         <div className="buttons">
-          <Button className="small" onClick={onCancel}>
-            {cancelTxt}
-          </Button>
+          <Button onClick={onCancel}>{cancelTxt}</Button>
           <Button
             colorCyan={type === 'confirm'}
             colorRed={type === 'delete'}
-            className="small"
             onClick={onConfirm}
           >
             {confirmTxt}
