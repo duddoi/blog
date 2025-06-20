@@ -32,11 +32,28 @@ const PostItemBlock = styled.div`
       word-break: break-all;
     }
   }
+`;
+const Content = styled.div`
+  background: ${palette.gray[1]};
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 12px;
+  max-height: 160px;
   .text {
-    background: ${palette.gray[1]};
-    padding: 12px;
-    border-radius: 8px;
-    margin-top: 12px;
+    height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    word-break: break-all;
+    line-clamp: 5;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    p {
+      margin: 0;
+      & + & {
+        margin-top: 12px;
+      }
+    }
   }
 `;
 
@@ -53,12 +70,14 @@ export function PostItem({ post }) {
         hasMargin="true"
       />
       <Tags tags={tags} />
-      <div className="text" dangerouslySetInnerHTML={{ __html: body }} />
+      <Content>
+        <div className="text" dangerouslySetInnerHTML={{ __html: body }} />
+      </Content>
     </PostItemBlock>
   );
 }
 
-export default function PostList({ posts, error, loading }) {
+export default function PostList({ posts, login, postLen, loading }) {
   return (
     <PostListBlock>
       {!loading && posts && (
@@ -68,9 +87,12 @@ export default function PostList({ posts, error, loading }) {
           ))}
         </div>
       )}
-      {error && (
+      {postLen && (
         <p className="blank">
-          포스트가 없습니다. <br /> 로그인 후 포스트 등록이 가능합니다.
+          포스트가 없습니다. <br />
+          {login
+            ? "'ADD NEW'를 눌러 포스트를 등록해 보세요!"
+            : '로그인 후 포스트 등록이 가능합니다.'}
         </p>
       )}
     </PostListBlock>

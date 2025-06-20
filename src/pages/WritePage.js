@@ -5,7 +5,7 @@ import WriteActionButtonsContainer from '../containers/write/WriteActionButtonsC
 import { Helmet } from 'react-helmet-async';
 import Header from '../components/common/Header';
 
-export default function WritePage({ login, onLogOut }) {
+export default function WritePage() {
   return (
     <>
       <Helmet>

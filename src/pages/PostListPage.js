@@ -14,9 +14,15 @@ function chunk(data = [], size = 1) {
   return arr;
 }
 
-export default function PostListPage({ login, onLogOut }) {
+export default function PostListPage() {
   const localStorageData = JSON.parse(localStorage.getItem('PostList'));
-  const posts = localStorageData === null ? [] : localStorageData.reverse();
+  const localStorageUser = JSON.parse(localStorage.getItem('User'));
+  const posts =
+    localStorageData === null
+      ? []
+      : localStorageData.sort(
+          (a, b) => new Date(b.publishedDate) - new Date(a.publishedDate),
+        );
   const [searchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page'), 10) || 1;
   return (
@@ -25,7 +31,11 @@ export default function PostListPage({ login, onLogOut }) {
         <title>HOME</title>
       </Helmet>
       <Header />
-      <PostList posts={chunk(posts, 5)[page - 1]} error={posts.length === 0} />
+      <PostList
+        posts={chunk(posts, 5)[page - 1]}
+        login={localStorageUser}
+        postLen={posts.length === 0}
+      />
       {posts.length > 0 && (
         <Pagination page={page} lastPage={Math.ceil(posts.length / 5)} />
       )}

@@ -24,7 +24,14 @@ const PostHead = styled.div`
 const PostContent = styled.div`
   font-size: 14px;
   color: ${palette.gray[8]};
-  margin-top: 24px;
+  padding: 0 0 42px;
+  word-break: break-all;
+  p {
+    margin: 0;
+    & + & {
+      margin-top: 12px;
+    }
+  }
 `;
 
 export default function PostViewer({ post, error, loading }) {

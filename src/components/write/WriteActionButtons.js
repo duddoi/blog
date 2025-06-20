@@ -2,24 +2,19 @@ import styled from 'styled-components';
 import Button from '../common/Button';
 
 const WirteActionButtonsBlock = styled.div`
-  margin-top: 24px;
-  padding-bottom: 32px;
-`;
-const StyledButton = styled(Button)`
-  height: 32px;
-  & + & {
-    margin-left: 12px;
-  }
+  padding: 24px 0 42px;
+  display: flex;
+  gap: 12px;
 `;
 
 export default function WriteActionButtons({ onPublish, onCancel, isEdit }) {
   return (
     <>
       <WirteActionButtonsBlock>
-        <StyledButton mainColor={true} onClick={onPublish}>
+        <Button mainColor={true} onClick={onPublish}>
           포스트 {isEdit ? '수정' : '등록'}
-        </StyledButton>
-        <StyledButton onClick={onCancel}>취소</StyledButton>
+        </Button>
+        <Button onClick={onCancel}>취소</Button>
       </WirteActionButtonsBlock>
     </>
   );
