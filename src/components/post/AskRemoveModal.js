@@ -6,7 +6,6 @@ export default function AskRemoveModal({ visble, onCancel, onConfirm }) {
       visble={visble}
       onCancel={onCancel}
       onConfirm={onConfirm}
-      title="포스트 삭제"
       description="포스트 삭제하시겠습니까?"
       confirmTxt="삭제"
       type="delete"

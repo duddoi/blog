@@ -3,6 +3,7 @@ import Responsive from './Responsive';
 import Button from './Button';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import palette from '../../lib/styles/palette';
 
 const HeaderBlock = styled.div`
   position: fixed;
@@ -32,18 +33,22 @@ const Spacer = styled.div`
 `;
 
 const UserInfo = styled.div`
-  font-weight: 800;
   margin-right: 12px;
   font-size: 12px;
+  span {
+    font-weight: 700;
+    color: ${palette.teal[7]};
+  }
 `;
 const WritePostButtonWrapper = styled(Responsive)`
   display: flex;
   justify-content: flex-end;
+  gap: 12px;
   margin-bottom: 32px;
-  padding: 24px 24px 0 0;
+  padding: 24px 24px 0 24px;
 `;
 
-export default function Header({ noWriteBtn }) {
+export default function Header({ writeBtn = true, actionBtn }) {
   const localStorageData = JSON.parse(localStorage.getItem('User'));
   const [login, setLogin] = useState(localStorageData);
   const onLogOut = () => {
@@ -55,18 +60,20 @@ export default function Header({ noWriteBtn }) {
       <HeaderBlock>
         <Wrapper>
           <Link to="/" className="logo">
-            REACT-BLOG
+            BLOG
           </Link>
           <div className="right">
             {login ? (
               <>
-                <UserInfo>{login}</UserInfo>
-                <Button className="small" colorCyan="true" onClick={onLogOut}>
+                <UserInfo>
+                  <span>{login}</span> 님, 안녕하세요!
+                </UserInfo>
+                <Button className="small" onClick={onLogOut}>
                   로그아웃
                 </Button>
               </>
             ) : (
-              <Button colorCyan="true" to="/login">
+              <Button mainColor={true} to="/login">
                 로그인
               </Button>
             )}
@@ -75,7 +82,12 @@ export default function Header({ noWriteBtn }) {
       </HeaderBlock>
       <Spacer />
       <WritePostButtonWrapper>
-        {login && !noWriteBtn && <Button to="/write">글 작성하기</Button>}
+        {login && writeBtn && (
+          <Button mainColor={true} to="/write">
+            ADD NEW
+          </Button>
+        )}
+        {login && actionBtn}
       </WritePostButtonWrapper>
     </>
   );

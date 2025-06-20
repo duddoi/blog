@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const TagsBlock = styled.div`
   margin-top: 8px;
   font-size: 12px;
+  line-height: 18px;
   .tag {
     display: inline-block;
     color: ${palette.teal[7]};

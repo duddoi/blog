@@ -62,8 +62,8 @@ export default function AskModal({
         <div className="buttons">
           <Button onClick={onCancel}>{cancelTxt}</Button>
           <Button
-            colorCyan={type === 'confirm'}
-            colorRed={type === 'delete'}
+            mainColor={type === 'confirm'}
+            warning={type === 'delete'}
             onClick={onConfirm}
           >
             {confirmTxt}

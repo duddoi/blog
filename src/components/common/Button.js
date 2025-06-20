@@ -4,20 +4,24 @@ import { Link } from 'react-router-dom';
 
 const buttonStyle = css`
   border: none;
-  background: ${palette.gray[8]};
+  background: ${palette.gray[7]};
   padding: 8px 12px;
-  font-size: 14px;
+  min-width: 60px;
+  font-size: 12px;
+  line-height: 16px;
   color: #fff;
-  border-radius: 4px;
-  ${'' /* max-height: 32px; */}
+  border-radius: 6px;
   cursor: pointer;
+  transition: background 500ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &.small {
-    font-size: 12px;
-    padding: 6px;
+    padding: 6px 12px;
   }
   &:hover {
-    background: ${palette.gray[7]};
+    background: ${palette.gray[6]};
   }
 
   &:disabled {
@@ -33,21 +37,28 @@ const buttonStyle = css`
       height: 42px;
       font-weight: 700;
       width: 100%;
+      font-size: 14px;
     `}
   ${(props) =>
-    props.$cyan &&
+    props.$mainColor &&
     css`
-      background: ${palette.teal[5]};
-      transition: background 500ms;
+      background: ${palette.teal[7]};
       &:hover {
-        background: ${palette.teal[7]};
+        background: ${palette.teal[6]};
+      }
+    `}
+  ${(props) =>
+    props.$subColor &&
+    css`
+      background: ${palette.indigo[6]};
+      &:hover {
+        background: ${palette.indigo[7]};
       }
     `}
   ${(props) =>
     props.$warning &&
     css`
       background: ${palette.red[6]};
-      transition: background 500ms;
       &:hover {
         background: ${palette.red[7]};
       }
@@ -62,8 +73,9 @@ const StyleLink = styled(Link)`
 
 export default function Button({
   fullType,
-  colorCyan,
-  colorRed,
+  mainColor,
+  subColor,
+  warning,
   children,
   className,
   onClick,
@@ -75,8 +87,9 @@ export default function Button({
       {to ? (
         <StyleLink
           $fullwidth={fullType}
-          $cyan={colorCyan}
-          $warning={colorRed}
+          $mainColor={mainColor}
+          $subColor={subColor}
+          $warning={warning}
           className={className}
           to={to}
           disabled={disabled}
@@ -86,11 +99,12 @@ export default function Button({
       ) : (
         <StyleButton
           $fullwidth={fullType}
-          $cyan={colorCyan}
+          $mainColor={mainColor}
+          $subColor={subColor}
+          $warning={warning}
           className={className}
           onClick={onClick}
           disabled={disabled}
-          $warning={colorRed}
         >
           {children}
         </StyleButton>

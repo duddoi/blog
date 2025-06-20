@@ -11,7 +11,7 @@ export default function WritePage({ login, onLogOut }) {
       <Helmet>
         <title>Write a POST</title>
       </Helmet>
-      <Header noWriteBtn="true" />
+      <Header writeBtn={false} />
       <Responsive>
         <EditorContainer />
         <TagBoxContainer />

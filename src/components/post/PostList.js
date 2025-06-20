@@ -10,25 +10,33 @@ const PostListBlock = styled(Responsive)`
   .blank {
     text-align: center;
     color: ${palette.gray[6]};
+    font-size: 12px;
+    line-height: 18px;
   }
 `;
 
 const PostItemBlock = styled.div`
   font-size: 12px;
-  padding: 20px 0;
+  line-height: 16px;
+  padding: 10px 0;
   &:first-child {
     padding-top: 0;
-  }
-  & + & {
-    border-top: 1px solid ${palette.gray[3]};
   }
 
   h2 {
     font-size: 16px;
+    line-height: 24px;
     hyphens: auto;
+    a {
+      display: block;
+      word-break: break-all;
+    }
   }
-  p {
-    margin-top: 20px;
+  .text {
+    background: ${palette.gray[1]};
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 12px;
   }
 `;
 
@@ -45,12 +53,12 @@ export function PostItem({ post }) {
         hasMargin="true"
       />
       <Tags tags={tags} />
-      <p dangerouslySetInnerHTML={{ __html: body }} />
+      <div className="text" dangerouslySetInnerHTML={{ __html: body }} />
     </PostItemBlock>
   );
 }
 
-export default function PostList({ posts, error, loading, showWriteBtn }) {
+export default function PostList({ posts, error, loading }) {
   return (
     <PostListBlock>
       {!loading && posts && (

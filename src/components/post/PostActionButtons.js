@@ -7,14 +7,10 @@ const PostActionButtonBlock = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  margin-top: 24px;
 `;
 
 export default function PostActionButtons({ onEdit, onRemove }) {
   const [modal, setModal] = useState(false);
-  const onRemoveClick = () => {
-    setModal(true);
-  };
 
   const onCancel = () => {
     setModal(false);
@@ -27,10 +23,10 @@ export default function PostActionButtons({ onEdit, onRemove }) {
   return (
     <>
       <PostActionButtonBlock>
-        <Button colorCyan="true" onClick={onEdit}>
+        <Button subColor={true} onClick={onEdit}>
           MODIFY
         </Button>
-        <Button onClick={onRemoveClick} colorRed="true">
+        <Button onClick={() => setModal(true)} warning={true}>
           DELETE
         </Button>
       </PostActionButtonBlock>

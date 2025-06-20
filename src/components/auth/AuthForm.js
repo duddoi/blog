@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CryptoJS from 'crypto-js';
 import { v4 as uuidv4 } from 'uuid';
 import AskModal from '../common/AskModal';
@@ -39,7 +39,7 @@ const StyledInput = styled.input`
   transition: 0.2s;
 `;
 
-const LoginButton = styled(Button)`
+const AuthButton = styled(Button)`
   margin-top: 24px;
 `;
 
@@ -167,10 +167,6 @@ export default function AuthForm({ type }) {
   };
   useEffect(() => {
     localStorage.setItem('UserList', JSON.stringify(users));
-    return () => {
-      console.log('clear!!!');
-      localStorage.setItem('UserList', JSON.stringify([]));
-    };
   }, [users]);
   return (
     <AuthFormBlock>
@@ -210,9 +206,9 @@ export default function AuthForm({ type }) {
         {message.text && (
           <Msg $error={message.type === 'error'}>{message.text}</Msg>
         )}
-        <LoginButton fullType="true" colorCyan="true">
+        <AuthButton fullType={true} mainColor={true}>
           {text}
-        </LoginButton>
+        </AuthButton>
       </form>
       <Footer>
         {type === 'register' ? (

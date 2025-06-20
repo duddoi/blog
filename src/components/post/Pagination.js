@@ -4,12 +4,12 @@ import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
 
 const PaginationBlock = styled.div`
-  width: 160px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 32px;
+  padding: 32px 24px 42px;
   .now-page {
     color: ${palette.teal[9]};
     font-weight: bold;
