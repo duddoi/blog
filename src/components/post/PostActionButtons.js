@@ -24,7 +24,7 @@ export default function PostActionButtons({ onEdit, onRemove }) {
     <>
       <PostActionButtonBlock>
         <Button subColor={true} onClick={onEdit}>
-          MODIFY
+          EDIT
         </Button>
         <Button onClick={() => setModal(true)} warning={true}>
           DELETE

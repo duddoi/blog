@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import qs from 'qs';
 import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
+import Responsive from '../common/Responsive';
 
-const PaginationBlock = styled.div`
-  width: 100%;
+const PaginationBlock = styled(Responsive)`
+  max-width: 280px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -21,17 +22,17 @@ const PaginationBlock = styled.div`
 
 const PageNumber = styled.div``;
 
-const buildLink = ({ page }) => {
-  const query = qs.stringify({ page });
+const buildLink = ({ tag, page }) => {
+  const query = qs.stringify({ tag, page });
   return `?${query}`;
 };
 
-export default function Pagination({ page, lastPage }) {
+export default function Pagination({ page, lastPage, tag }) {
   return (
     <PaginationBlock>
       <Button
         disabled={page === 1}
-        to={page === 1 ? undefined : buildLink({ page: page - 1 })}
+        to={page === 1 ? undefined : buildLink({ tag, page: page - 1 })}
       >
         이전
       </Button>
@@ -41,7 +42,7 @@ export default function Pagination({ page, lastPage }) {
       </PageNumber>
       <Button
         disabled={page === lastPage}
-        to={page === lastPage ? undefined : buildLink({ page: page + 1 })}
+        to={page === lastPage ? undefined : buildLink({ tag, page: page + 1 })}
       >
         다음
       </Button>

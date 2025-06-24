@@ -13,8 +13,8 @@ const SubInfoBlock = styled.div`
   span + span::before {
     content: '\\B7';
     color: ${palette.gray[5]};
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 6px;
+    padding-right: 6px;
   }
 `;
 

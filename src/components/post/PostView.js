@@ -58,7 +58,7 @@ export default function PostViewer({ post, error, loading }) {
           <h1>{title}</h1>
           <SubInfo
             username={username}
-            publishedDate={publishedDate}
+            publishedDate={publishedDate.slice(0, -3)}
             hasMargin="true"
           />
           <Tags tags={tags} />

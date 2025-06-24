@@ -81,6 +81,7 @@ export default function Button({
   onClick,
   to,
   disabled,
+  style,
 }) {
   return (
     <>
@@ -91,6 +92,7 @@ export default function Button({
           $subColor={subColor}
           $warning={warning}
           className={className}
+          style={style}
           to={to}
           disabled={disabled}
         >
@@ -103,6 +105,7 @@ export default function Button({
           $subColor={subColor}
           $warning={warning}
           className={className}
+          style={style}
           onClick={onClick}
           disabled={disabled}
         >

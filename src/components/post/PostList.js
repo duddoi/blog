@@ -4,6 +4,7 @@ import palette from '../../lib/styles/palette';
 import SubInfo from '../common/SubInfo';
 import Tags from '../common/Tags';
 import { Link } from 'react-router-dom';
+import Button from '../common/Button';
 
 const PostListBlock = styled(Responsive)`
   margin-top: 32px;
@@ -66,7 +67,7 @@ export function PostItem({ post }) {
       </h2>
       <SubInfo
         username={username}
-        publishedDate={publishedDate}
+        publishedDate={publishedDate.slice(0, -3)}
         hasMargin="true"
       />
       <Tags tags={tags} />
@@ -76,23 +77,36 @@ export function PostItem({ post }) {
     </PostItemBlock>
   );
 }
-
-export default function PostList({ posts, login, postLen, loading }) {
+export default function PostList({
+  posts,
+  login,
+  postLen,
+  loading,
+  onCreateFakeData,
+  tag,
+}) {
   return (
     <PostListBlock>
-      {!loading && posts && (
-        <div>
-          {posts.map((post) => (
-            <PostItem post={post} key={post._id} />
-          ))}
-        </div>
-      )}
+      {!loading &&
+        posts &&
+        posts.map((post) => <PostItem post={post} key={post._id} />)}
       {postLen && (
         <p className="blank">
           포스트가 없습니다. <br />
-          {login
-            ? "'ADD NEW'를 눌러 포스트를 등록해 보세요!"
-            : '로그인 후 포스트 등록이 가능합니다.'}
+          {login ? (
+            <>
+              "'ADD NEW'를 눌러 포스트를 등록해 보세요!"
+              <Button
+                style={{ margin: '12px auto' }}
+                subColor={true}
+                onClick={onCreateFakeData}
+              >
+                fakeData 생성
+              </Button>
+            </>
+          ) : (
+            '로그인 후 포스트 등록이 가능합니다.'
+          )}
         </p>
       )}
     </PostListBlock>
