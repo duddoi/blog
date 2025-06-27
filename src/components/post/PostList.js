@@ -3,8 +3,11 @@ import Responsive from '../common/Responsive';
 import palette from '../../lib/styles/palette';
 import SubInfo from '../common/SubInfo';
 import Tags from '../common/Tags';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
+import { useState } from 'react';
+import { formatDate } from '../../lib/format';
+import Dropdown from '../common/Dropdown';
 
 const PostListBlock = styled(Responsive)`
   margin-top: 32px;
@@ -58,6 +61,23 @@ const Content = styled.div`
   }
 `;
 
+const SetDataBlock = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  gap: 12px;
+  button {
+    min-height: 38px;
+  }
+`;
+const options = [
+  { value: 10, label: '10개' },
+  { value: 20, label: '20개' },
+  { value: 30, label: '30개' },
+  { value: 50, label: '50개' },
+];
+
 export function PostItem({ post }) {
   const { publishedDate, _id, username, title, tags, body } = post;
   return (
@@ -77,14 +97,26 @@ export function PostItem({ post }) {
     </PostItemBlock>
   );
 }
-export default function PostList({
-  posts,
-  login,
-  postLen,
-  loading,
-  onCreateFakeData,
-  tag,
-}) {
+export default function PostList({ posts, login, postLen, loading, username }) {
+  const [select, setSelect] = useState(options[0]);
+  const navigate = useNavigate();
+
+  function onCreateFakeData(quantity) {
+    const arr = [];
+    for (let i = 1; i <= quantity; i++) {
+      arr.push({
+        _id: JSON.stringify(i),
+        title: `test title ${i}`,
+        tags: ['react', `test${i <= 10 ? ' filter' : i}`],
+        body: `test body ${i}`,
+        publishedDate: formatDate(new Date()),
+        username: username,
+        originalPost: null,
+      });
+    }
+    localStorage.setItem('PostList', JSON.stringify(arr));
+    navigate('/');
+  }
   return (
     <PostListBlock>
       {!loading &&
@@ -92,23 +124,31 @@ export default function PostList({
         posts.map((post) => <PostItem post={post} key={post._id} />)}
 
       {postLen && (
-        <p className="blank">
-          포스트가 없습니다. <br />
+        <div className="blank">
+          포스트가 없습니다.
+          <br />
           {login ? (
             <>
               'ADD NEW'를 눌러 포스트를 등록해 보세요!
-              <Button
-                style={{ margin: '12px auto' }}
-                subColor={true}
-                onClick={onCreateFakeData}
-              >
-                fakeData 생성
-              </Button>
+              <SetDataBlock>
+                <Dropdown
+                  options={options}
+                  handleChange={(op) => {
+                    setSelect(op);
+                  }}
+                />
+                <Button
+                  subColor={true}
+                  onClick={() => onCreateFakeData(select.value)}
+                >
+                  {select.label} fakeData 생성
+                </Button>
+              </SetDataBlock>
             </>
           ) : (
             '로그인 후 포스트 등록이 가능합니다.'
           )}
-        </p>
+        </div>
       )}
     </PostListBlock>
   );

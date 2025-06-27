@@ -10,6 +10,7 @@ const HeaderBlock = styled.div`
   width: 100%;
   background: #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  z-index: 1;
 `;
 
 const Wrapper = styled(Responsive)`
@@ -56,7 +57,18 @@ const WritePostButtonWrapper = styled(Responsive)`
   }
 `;
 
-export default function Header({ writeBtn = true, actionBtn, postsLen }) {
+const CountBlock = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+export default function Header({
+  writeBtn = true,
+  actionBtn,
+  postsLen,
+  countPage,
+}) {
   const localStorageData = JSON.parse(localStorage.getItem('User'));
   const [login, setLogin] = useState(localStorageData);
   const onLogOut = () => {
@@ -96,10 +108,13 @@ export default function Header({ writeBtn = true, actionBtn, postsLen }) {
           </Button>
         )}
         {login && actionBtn}
-        {postsLen && (
-          <div className="count">
-            총 <span>{postsLen}</span>개
-          </div>
+        {postsLen >= 0 && (
+          <CountBlock>
+            {countPage}
+            <div className="count">
+              총 <span>{postsLen}</span> 개
+            </div>
+          </CountBlock>
         )}
       </WritePostButtonWrapper>
     </>

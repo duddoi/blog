@@ -23,7 +23,7 @@ const PaginationBlock = styled(Responsive)`
 const PageNumber = styled.div``;
 
 const buildLink = ({ tag, page }) => {
-  const query = qs.stringify({ tag, page });
+  const query = qs.stringify({ page, tag });
   return `?${query}`;
 };
 

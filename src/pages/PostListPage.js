@@ -1,9 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import PostList from '../components/post/PostList';
 import Pagination from '../components/post/Pagination';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Header from '../components/common/Header';
-import { formatDate } from '../lib/format';
+import Dropdown from '../components/common/Dropdown';
+import { useState } from 'react';
 
 function chunk(data = [], size = 1) {
   const arr = [];
@@ -15,31 +16,20 @@ function chunk(data = [], size = 1) {
   return arr;
 }
 
+const options = [
+  { value: 5, label: '5개' },
+  { value: 10, label: '10개' },
+  { value: 20, label: '20개' },
+];
+
 export default function PostListPage() {
   const localStorageData = JSON.parse(localStorage.getItem('PostList'));
   const localStorageUser = JSON.parse(localStorage.getItem('User'));
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const page = parseInt(searchParams.get('page'), 10) || 1;
   const tag = searchParams.get('tag');
   const posts = setPostList(localStorageData);
-
-  function onCreateFakeData(quantity) {
-    const arr = [];
-    for (let i = 1; i <= quantity; i++) {
-      arr.push({
-        _id: JSON.stringify(i),
-        title: `test title ${i}`,
-        tags: ['react', `test${i <= 10 ? ' filter' : i}`],
-        body: `test body ${i}`,
-        publishedDate: formatDate(new Date()),
-        username: localStorageUser,
-        originalPost: null,
-      });
-    }
-    localStorage.setItem('PostList', JSON.stringify(arr));
-    navigate('/');
-  }
+  const [select, setSelect] = useState(options[0]);
 
   function setPostList(list) {
     if (list === null) {
@@ -66,17 +56,28 @@ export default function PostListPage() {
       <Helmet>
         <title>HOME</title>
       </Helmet>
-      <Header postsLen={posts.length} />
+      <Header
+        postsLen={posts.length}
+        countPage={
+          <Dropdown
+            options={options}
+            handleChange={(op) => {
+              setSelect(op);
+            }}
+            nonLine={true}
+          />
+        }
+      />
       <PostList
-        posts={chunk(posts, 5)[page - 1]}
+        posts={chunk(posts, select.value)[page - 1]}
         login={localStorageUser}
         postLen={posts.length === 0}
-        onCreateFakeData={() => onCreateFakeData(20)}
+        username={localStorageUser}
       />
       {posts.length > 0 && (
         <Pagination
           page={page}
-          lastPage={Math.ceil(posts.length / 5)}
+          lastPage={Math.ceil(posts.length / select.value)}
           tag={tag}
         />
       )}
