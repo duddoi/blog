@@ -96,7 +96,7 @@ export default function Header({ writeBtn = true, actionBtn, postsLen }) {
           </Button>
         )}
         {login && actionBtn}
-        {!actionBtn && (
+        {postsLen && (
           <div className="count">
             총 <span>{postsLen}</span>개
           </div>
