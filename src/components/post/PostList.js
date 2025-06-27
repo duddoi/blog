@@ -90,12 +90,13 @@ export default function PostList({
       {!loading &&
         posts &&
         posts.map((post) => <PostItem post={post} key={post._id} />)}
+
       {postLen && (
         <p className="blank">
           포스트가 없습니다. <br />
           {login ? (
             <>
-              "'ADD NEW'를 눌러 포스트를 등록해 보세요!"
+              'ADD NEW'를 눌러 포스트를 등록해 보세요!
               <Button
                 style={{ margin: '12px auto' }}
                 subColor={true}

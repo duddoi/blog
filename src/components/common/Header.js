@@ -42,13 +42,21 @@ const UserInfo = styled.div`
 `;
 const WritePostButtonWrapper = styled(Responsive)`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   gap: 12px;
   margin-bottom: 32px;
   padding: 24px 24px 0 24px;
+  .count {
+    font-size: 12px;
+    span {
+      font-weight: 700;
+      color: ${palette.teal[7]};
+    }
+  }
 `;
 
-export default function Header({ writeBtn = true, actionBtn }) {
+export default function Header({ writeBtn = true, actionBtn, postsLen }) {
   const localStorageData = JSON.parse(localStorage.getItem('User'));
   const [login, setLogin] = useState(localStorageData);
   const onLogOut = () => {
@@ -88,6 +96,11 @@ export default function Header({ writeBtn = true, actionBtn }) {
           </Button>
         )}
         {login && actionBtn}
+        {!actionBtn && (
+          <div className="count">
+            총 <span>{postsLen}</span>개
+          </div>
+        )}
       </WritePostButtonWrapper>
     </>
   );

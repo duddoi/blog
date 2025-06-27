@@ -66,7 +66,7 @@ export default function PostListPage() {
       <Helmet>
         <title>HOME</title>
       </Helmet>
-      <Header />
+      <Header postsLen={posts.length} />
       <PostList
         posts={chunk(posts, 5)[page - 1]}
         login={localStorageUser}
