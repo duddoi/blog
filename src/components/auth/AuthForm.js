@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import CryptoJS from 'crypto-js';
 import { v4 as uuidv4 } from 'uuid';
 import AskModal from '../common/AskModal';
+import { useDispatch } from 'react-redux';
+import { loginStatus } from '../../modules/auth';
 
 // 회원가입/로그인 폼
 
@@ -97,6 +99,7 @@ export default function AuthForm({ type }) {
   const [modal, setModal] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -149,6 +152,7 @@ export default function AuthForm({ type }) {
       if (exist && password) {
         if (password === decrypted(exist.password, secretKey)) {
           localStorage.setItem('User', JSON.stringify(username));
+          dispatch(loginStatus(username));
           navigate('/');
         } else {
           setMessage({

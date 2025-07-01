@@ -8,6 +8,7 @@ import Button from '../common/Button';
 import { useState } from 'react';
 import { formatDate } from '../../lib/format';
 import Dropdown from '../common/Dropdown';
+import { useSelector } from 'react-redux';
 
 const PostListBlock = styled(Responsive)`
   margin-top: 32px;
@@ -97,9 +98,12 @@ export function PostItem({ post }) {
     </PostItemBlock>
   );
 }
-export default function PostList({ posts, login, postLen, loading, username }) {
+export default function PostList({ posts, noPost, loading }) {
   const [select, setSelect] = useState(options[0]);
   const navigate = useNavigate();
+  const username = useSelector(({ auth }) => {
+    return auth.auth;
+  });
 
   function onCreateFakeData(quantity) {
     const arr = [];
@@ -123,11 +127,11 @@ export default function PostList({ posts, login, postLen, loading, username }) {
         posts &&
         posts.map((post) => <PostItem post={post} key={post._id} />)}
 
-      {postLen && (
+      {noPost && (
         <div className="blank">
           포스트가 없습니다.
           <br />
-          {login ? (
+          {username ? (
             <>
               'ADD NEW'를 눌러 포스트를 등록해 보세요!
               <SetDataBlock>

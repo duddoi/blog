@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import Responsive from './Responsive';
 import Button from './Button';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import palette from '../../lib/styles/palette';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginStatus } from '../../modules/auth';
 
 const HeaderBlock = styled.div`
   position: fixed;
@@ -69,10 +70,12 @@ export default function Header({
   postsLen,
   countPage,
 }) {
-  const localStorageData = JSON.parse(localStorage.getItem('User'));
-  const [login, setLogin] = useState(localStorageData);
+  const login = useSelector(({ auth }) => {
+    return auth.auth;
+  });
+  const dispatch = useDispatch();
   const onLogOut = () => {
-    setLogin('');
+    dispatch(loginStatus(null));
     localStorage.setItem('User', JSON.stringify(''));
   };
   return (
@@ -102,20 +105,20 @@ export default function Header({
       </HeaderBlock>
       <Spacer />
       <WritePostButtonWrapper>
+        {login && postsLen >= 0 && (
+          <CountBlock>
+            <div className="count">
+              총 <span>{postsLen}</span> 개
+            </div>
+            {countPage}
+          </CountBlock>
+        )}
         {login && writeBtn && (
           <Button mainColor={true} to="/write">
             ADD NEW
           </Button>
         )}
         {login && actionBtn}
-        {postsLen >= 0 && (
-          <CountBlock>
-            {countPage}
-            <div className="count">
-              총 <span>{postsLen}</span> 개
-            </div>
-          </CountBlock>
-        )}
       </WritePostButtonWrapper>
     </>
   );
