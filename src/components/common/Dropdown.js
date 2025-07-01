@@ -24,7 +24,8 @@ const MyDropdown = styled(Select)`
     .react-select__single-value {
       color: ${palette.gray[7]};
     }
-    &.focus {
+    &.focus,
+    &:focus {
       border-color: ${palette.indigo[3]};
       box-shadow: none;
       .react-select__indicator {

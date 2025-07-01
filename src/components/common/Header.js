@@ -105,15 +105,17 @@ export default function Header({
       </HeaderBlock>
       <Spacer />
       <WritePostButtonWrapper>
-        {login && postsLen >= 0 && (
-          <CountBlock>
-            <div className="count">
-              총 <span>{postsLen}</span> 개
-            </div>
-            {countPage}
-          </CountBlock>
-        )}
-        {login && actionBtn}
+        <div>
+          {postsLen >= 0 && (
+            <CountBlock>
+              <div className="count">
+                총 <span>{postsLen}</span> 개
+              </div>
+              {countPage}
+            </CountBlock>
+          )}
+          {login && actionBtn}
+        </div>
         {login && writeBtn && (
           <Button mainColor={true} to="/write">
             ADD NEW

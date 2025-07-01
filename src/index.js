@@ -13,7 +13,7 @@ const store = configureStore({
   reducer: rootReducer,
 });
 
-export default function ScrollTop() {
+function ScrollTop() {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
