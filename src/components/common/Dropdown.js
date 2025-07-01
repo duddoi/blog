@@ -9,8 +9,8 @@ const MyDropdown = styled(Select)`
   line-height: 16px;
   .react-select__control {
     border-color: transparent;
-    /* box-shadow: 0; */
-    min-height: 28px;
+    border-radius: 6px;
+    min-height: 32px;
     cursor: pointer;
     .react-select__indicator {
       transform: rotate(0);
@@ -31,6 +31,9 @@ const MyDropdown = styled(Select)`
         transform: rotate(180deg);
         padding: 0 8px;
       }
+    }
+    &:hover {
+      border-color: transparent;
     }
     ${(props) =>
       props.$hasBg &&

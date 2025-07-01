@@ -68,8 +68,8 @@ const SetDataBlock = styled.div`
   align-items: center;
   margin-top: 24px;
   gap: 12px;
-  button {
-    min-height: 38px;
+  .react-select__control {
+    min-height: 32px;
   }
 `;
 const options = [
@@ -111,7 +111,7 @@ export default function PostList({ posts, noPost, loading }) {
       arr.push({
         _id: JSON.stringify(i),
         title: `test title ${i}`,
-        tags: ['react', `test${i <= 10 ? ' filter' : i}`],
+        tags: ['react', `${i <= 10 ? 'test filter' : '오오오'}`],
         body: `test body ${i}`,
         publishedDate: formatDate(new Date()),
         username: username,
@@ -145,7 +145,7 @@ export default function PostList({ posts, noPost, loading }) {
                   subColor={true}
                   onClick={() => onCreateFakeData(select.value)}
                 >
-                  {select.label} fakeData 생성
+                  {select.label} testData 생성
                 </Button>
               </SetDataBlock>
             </>

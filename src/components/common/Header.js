@@ -113,12 +113,12 @@ export default function Header({
             {countPage}
           </CountBlock>
         )}
+        {login && actionBtn}
         {login && writeBtn && (
           <Button mainColor={true} to="/write">
             ADD NEW
           </Button>
         )}
-        {login && actionBtn}
       </WritePostButtonWrapper>
     </>
   );
