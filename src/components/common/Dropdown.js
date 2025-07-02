@@ -12,6 +12,19 @@ const MyDropdown = styled(Select)`
     border-radius: 6px;
     min-height: 32px;
     cursor: pointer;
+    &.focus,
+    &:focus {
+      border-color: ${palette.indigo[3]};
+      box-shadow: none;
+      .react-select__indicator {
+        transform: rotate(180deg);
+        padding: 0 8px;
+      }
+    }
+    &:hover {
+      border-color: ${palette.indigo[3]};
+    }
+
     .react-select__indicator {
       transform: rotate(0);
       transition: all 0.5s;
@@ -24,18 +37,7 @@ const MyDropdown = styled(Select)`
     .react-select__single-value {
       color: ${palette.gray[7]};
     }
-    &.focus,
-    &:focus {
-      border-color: ${palette.indigo[3]};
-      box-shadow: none;
-      .react-select__indicator {
-        transform: rotate(180deg);
-        padding: 0 8px;
-      }
-    }
-    &:hover {
-      border-color: transparent;
-    }
+
     ${(props) =>
       props.$hasBg &&
       css`
